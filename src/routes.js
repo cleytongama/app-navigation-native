@@ -1,8 +1,14 @@
 import { createStackNavigator, createBottomTabNavigator, createAppContainer } from "react-navigation";
-import Home from './screens/Home'
-import Details from './screens/Details'
-import Profile from './screens/Profile'
-import Settings from './screens/Settings'
+
+import {
+    Home,
+    Details,
+    Profile,
+    Settings,
+    Modal
+} from './screens'
+
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 // Stack Navigation Home
 const HomeStack = createStackNavigator({
@@ -11,7 +17,7 @@ const HomeStack = createStackNavigator({
 },
     {
         initialRouteName: 'Home',
-        defaultNavigationOptions:{
+        defaultNavigationOptions: {
             headerStyle: {
                 backgroundColor: '#f4511e',
             },
@@ -21,10 +27,21 @@ const HomeStack = createStackNavigator({
             }
         },
         navigationOptions: {
-            tabBarLabel: 'Home!',
+            tabBarLabel: 'Home',
         }
     }
 );
+
+const RootHome = createStackNavigator(
+    {
+        HomeStack,
+        Modal
+    },
+    {
+        mode: 'modal',
+        headerMode: 'none',
+    }
+)
 
 // Stack Navigation Settings
 const SettingsStack = createStackNavigator({
@@ -37,10 +54,32 @@ const SettingsStack = createStackNavigator({
 )
 
 const Routes = createAppContainer(
+    // RootStack,
     createBottomTabNavigator({
-        Home:HomeStack,
-        Settings:SettingsStack
-    })
+        Home: RootHome,
+        Settings: SettingsStack
+    }, {
+            tabBarOptions: {
+                labelStyle: {
+                    fontSize: 16
+                },
+                activeTintColor: '#FFFFFF',
+                inactiveTintColor: '#000',
+                style: {
+                    backgroundColor: '#f4511e'
+                },
+                showLabel: false
+            },
+            defaultNavigationOptions: ({ navigation }) => ({
+                tabBarIcon: ({focused, horizontal, tintColor}) => {
+
+                }
+            })
+        }
+    )
 )
 
+// Na tela do feed , as abas da aplicacao
+// Navegacao em abas usando o createBottonTabNavigation
+// Cada tabNavigation possui sua pilha de navegacao
 export default Routes
