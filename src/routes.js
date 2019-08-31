@@ -1,4 +1,5 @@
-import { createStackNavigator, createBottomTabNavigator, createAppContainer } from "react-navigation";
+import React from 'react'
+import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator, createAppContainer, createDrawerNavigator } from "react-navigation";
 
 import {
     Home,
@@ -25,14 +26,11 @@ const HomeStack = createStackNavigator({
             headerTitleStyle: {
                 fontWeight: 'bold',
             }
-        },
-        navigationOptions: {
-            tabBarLabel: 'Home',
         }
     }
 );
-
-const RootHome = createStackNavigator(
+// MainHome
+const MainHome = createStackNavigator(
     {
         HomeStack,
         Modal
@@ -49,35 +47,45 @@ const SettingsStack = createStackNavigator({
     Profile
 },
     {
-        initialRouteName: 'Settings'
+        initialRouteName: 'Profile'
     }
 )
 
-const Routes = createAppContainer(
-    // RootStack,
-    createBottomTabNavigator({
-        Home: RootHome,
-        Settings: SettingsStack
-    }, {
-            tabBarOptions: {
-                labelStyle: {
-                    fontSize: 16
-                },
-                activeTintColor: '#FFFFFF',
-                inactiveTintColor: '#000',
-                style: {
-                    backgroundColor: '#f4511e'
-                },
-                showLabel: false
+const TabBarNavigation  =  createBottomTabNavigator(
+    {
+        Home: {
+            screen: MainHome,
+            navigationOptions: {
+                tabBarIcon: ({ tintColor }) => <Ionicons name="md-home" size={25} color={tintColor} />
             },
-            defaultNavigationOptions: ({ navigation }) => ({
-                tabBarIcon: ({focused, horizontal, tintColor}) => {
 
-                }
-            })
+        },
+        Settings: {
+            screen: SettingsStack,
+            navigationOptions: {
+                tabBarIcon: ({ tintColor }) => <Ionicons name="md-person" size={25} color={tintColor} />
+            },
+
         }
-    )
+    },
+    {
+        defaultNavigationOptions: ({ navigation }) => ({
+            tabBarOptions: {
+                activeTintColor: 'tomato',
+                inactiveTintColor: 'gray',
+                showLabel: false
+            }
+        })
+    }
 )
+
+const DraweNavigation = createDrawerNavigator({
+    "HOME":TabBarNavigation,
+    "Perfil": Profile,
+    "Configurações": Settings
+})
+
+const Routes = createAppContainer(DraweNavigation)
 
 // Na tela do feed , as abas da aplicacao
 // Navegacao em abas usando o createBottonTabNavigation

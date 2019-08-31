@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, Button, StatusBar } from 'react-native';
-
 // import { Container } from './styles';
 
 const Home = function (props) {
@@ -11,9 +10,9 @@ const Home = function (props) {
                 backgroundColor="#6a51ae"
             />
             <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-                <Text>Home Screen</Text>
+                <Text> Home Page</Text>
                 <Button
-                    title="Navegar para detalhes"
+                    title="Details Page"
                     onPress={() => props.navigation.navigate('Details', {
                         itemId: 86,
                         otherParam: 'Qualquer coisa aqui'

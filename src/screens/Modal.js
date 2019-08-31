@@ -5,10 +5,10 @@ export default class Modal extends Component {
     render() {
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text style={{ fontSize: 30 }}>Modal Main</Text>
+                <Text style={{ fontSize: 30 }}>Modal Page</Text>
                 <Button
                     onPress={() => this.props.navigation.goBack()}
-                    title="Dismiss"
+                    title="Close"
                 />
             </View>
         )
